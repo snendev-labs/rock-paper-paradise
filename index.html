@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Rock Paper Paradise</title>
+    
+    
+    
+    <link rel="icon" href="icon.ico">
+    <style>body, html {
+    height: 100%;
+}
+
+body {
+    background-color: lightgray;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    width: 800px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bevy {
+    z-index: 2;
+}
+</style>
+<link rel="modulepreload" href="./rock-paper-paradise-f85623114197e623.js" crossorigin="anonymous" integrity="sha384-kSd2jlu0kBbgLSbMjp0yA6N+n53PEmCSpxHPLe1KLrYDBYlEU3K0e8tg4P3BuyYe"><link rel="preload" href="./rock-paper-paradise-f85623114197e623_bg.wasm" crossorigin="anonymous" integrity="sha384-QprKB+i0yjOKOvVs6XGrh8VvkaYfODTjD+soumAB3+81HxZVHzk8GrTO2wAXgXF2" as="fetch" type="application/wasm"></head>
+
+<body>
+    <div class="game-container">
+        <canvas id="bevy">
+            Javascript and support for canvas is required
+        </canvas>
+    </div>
+
+<script type="module">
+import init, * as bindings from './rock-paper-paradise-f85623114197e623.js';
+const wasm = await init({ module_or_path: './rock-paper-paradise-f85623114197e623_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+
+</html>

@@ -29,22 +29,22 @@ body {
     align-items: center;
 }
 
-#bevy {
+#game-canvas {
     z-index: 2;
 }
 </style>
-<link rel="modulepreload" href="./rock-paper-paradise-f85623114197e623.js" crossorigin="anonymous" integrity="sha384-kSd2jlu0kBbgLSbMjp0yA6N+n53PEmCSpxHPLe1KLrYDBYlEU3K0e8tg4P3BuyYe"><link rel="preload" href="./rock-paper-paradise-f85623114197e623_bg.wasm" crossorigin="anonymous" integrity="sha384-QprKB+i0yjOKOvVs6XGrh8VvkaYfODTjD+soumAB3+81HxZVHzk8GrTO2wAXgXF2" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="./rock-paper-paradise-e63161756c6a933.js" crossorigin="anonymous" integrity="sha384-kSd2jlu0kBbgLSbMjp0yA6N+n53PEmCSpxHPLe1KLrYDBYlEU3K0e8tg4P3BuyYe"><link rel="preload" href="./rock-paper-paradise-e63161756c6a933_bg.wasm" crossorigin="anonymous" integrity="sha384-sLA2QnIHMbTA4wbHs7UTWfL212HjZVxAAWa3HHDlPuXZ+e+uustu99zhuPkJsjSM" as="fetch" type="application/wasm"></head>
 
 <body>
     <div class="game-container">
-        <canvas id="bevy">
+        <canvas id="game-canvas">
             Javascript and support for canvas is required
         </canvas>
     </div>
 
 <script type="module">
-import init, * as bindings from './rock-paper-paradise-f85623114197e623.js';
-const wasm = await init({ module_or_path: './rock-paper-paradise-f85623114197e623_bg.wasm' });
+import init, * as bindings from './rock-paper-paradise-e63161756c6a933.js';
+const wasm = await init({ module_or_path: './rock-paper-paradise-e63161756c6a933_bg.wasm' });
 
 
 window.wasmBindings = bindings;

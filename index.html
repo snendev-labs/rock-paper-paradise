@@ -33,13 +33,16 @@ body {
     z-index: 2;
 }
 </style>
-<link rel="modulepreload" href="./rock-paper-paradise-593835848b75f022.js" crossorigin="anonymous" integrity="sha384-Aj3j1N4sbolqtLELniPytxU0rIv7YtoSNhoDf20ZTAwrpDQ9NHlAxN2RKV4ezi9F"><link rel="preload" href="./rock-paper-paradise-593835848b75f022_bg.wasm" crossorigin="anonymous" integrity="sha384-f7k2tnyd9TxmxdvaXUqxuBU9aC4KTCzdqpq+j1BHb2OPfuERkDqs81SH7meix69z" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="./rock-paper-paradise-c8925f868c2882ae.js" crossorigin="anonymous" integrity="sha384-St8EcscJIJqm41TC/RpYgvM5XMMTrZ7MJIMO6NcRtmr3YioaNsnf9aSHVY2/FhQB"><link rel="preload" href="./rock-paper-paradise-c8925f868c2882ae_bg.wasm" crossorigin="anonymous" integrity="sha384-0T+DuGwaLGygIXblHM7s2G9qiwtPVyEcrSwcqn+9L/g0nyC1SnkTFrHfZSEPJEXU" as="fetch" type="application/wasm"></head>
 
 <body>
+    <main class="game-container">
+        <canvas id="game-canvas"></canvas>
+    </main>
 
 <script type="module">
-import init, * as bindings from './rock-paper-paradise-593835848b75f022.js';
-const wasm = await init({ module_or_path: './rock-paper-paradise-593835848b75f022_bg.wasm' });
+import init, * as bindings from './rock-paper-paradise-c8925f868c2882ae.js';
+const wasm = await init({ module_or_path: './rock-paper-paradise-c8925f868c2882ae_bg.wasm' });
 
 
 window.wasmBindings = bindings;

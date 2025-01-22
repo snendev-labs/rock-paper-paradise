@@ -32,7 +32,6 @@ pub struct UIPlugin;
 
 impl Plugin for UIPlugin {
     fn build(&self, app: &mut App) {
-        app.init_resource::<RpsGlyphs>();
         app.configure_sets(
             Update,
             (UISystems::Watch, UISystems::Unmount, UISystems::Mount).chain(),
@@ -53,6 +52,7 @@ impl UIPlugin {
     fn spawn_ui(mut commands: Commands) {
         commands.spawn(Camera2d);
         commands.spawn(AppScreen::default());
+        commands.init_resource::<RpsGlyphs>();
     }
 
     fn watch_screen_changes(

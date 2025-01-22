@@ -33,7 +33,6 @@ impl UIComponent for HomeMenuUIComponent {
             ))
             .observe(|trigger: Trigger<Pointer<Click>>, mut commands: Commands| {
                 let local_player = commands.spawn(super::LocalPlayer).id();
-                bevy::log::info!("HEllo...?");
                 commands.trigger(SpawnCampaign {
                     player: Some(local_player),
                 });

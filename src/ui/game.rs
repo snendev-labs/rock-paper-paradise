@@ -3,11 +3,11 @@ use std::collections::BTreeSet;
 use bevy::{
     ecs::system::StaticSystemParam,
     prelude::{
-        AlignItems, App, BackgroundColor, BorderColor, BorderRadius, BuildChildren, Changed,
+        AlignItems, Alpha, App, BackgroundColor, BorderColor, BorderRadius, BuildChildren, Changed,
         ChildBuild, ChildBuilder, Click, Color, Commands, Component, DespawnRecursiveExt, Entity,
         FlexDirection, FlexWrap, IntoSystemConfigs, JustifyContent, Name, Node, Out, Over, Plugin,
         Pointer, PositionType, Query, RemovedComponents, Res, Single, Text, TextFont, Trigger,
-        UiRect, Update, Val, With, Without,
+        UiRect, Update, Val, With, Without, ZIndex,
     },
 };
 
@@ -244,7 +244,7 @@ impl UIComponent for GameUIComponent {
                 ));
             });
 
-        builder.spawn((LastOutcomePanel, LastOutcomePanel::node()));
+        builder.spawn((LastOutcomePanel, LastOutcomePanel::node(), ZIndex(-1)));
     }
 }
 
@@ -468,7 +468,7 @@ impl PayoutTooltip {
 
     fn background_color() -> BackgroundColor {
         use bevy::color::palettes::css;
-        css::DARK_SLATE_BLUE.into()
+        css::DARK_SLATE_BLUE.with_alpha(0.95).into()
     }
 }
 

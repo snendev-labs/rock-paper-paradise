@@ -1,6 +1,6 @@
 use bevy::prelude::{
-    BackgroundColor, BuildChildren, Commands, Component, DespawnRecursiveExt, Entity, Name, Node,
-    Out, Over, Pointer, PositionType, Query, TextFont, Trigger, Val,
+    Alpha, BackgroundColor, BuildChildren, Commands, Component, DespawnRecursiveExt, Entity, Name,
+    Node, Out, Over, Pointer, PositionType, Query, TextFont, Trigger, Val,
 };
 
 use crate::Element;
@@ -21,7 +21,7 @@ impl ElementTooltip {
 
     pub fn background_color() -> BackgroundColor {
         use bevy::color::palettes::css;
-        css::DARK_SLATE_BLUE.into()
+        css::DARK_SLATE_BLUE.with_alpha(0.95).into()
     }
 
     pub fn make_on_over(element: Element) -> impl FnMut(Trigger<Pointer<Over>>, Commands) {

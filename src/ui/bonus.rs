@@ -1,8 +1,8 @@
 use bevy::{
     ecs::system::StaticSystemParam,
     prelude::{
-        AlignItems, BackgroundColor, BorderColor, BuildChildren, ChildBuild, ChildBuilder, Click,
-        Color, Commands, Component, DespawnRecursiveExt, Entity, FlexDirection, FlexWrap,
+        AlignItems, Alpha, BackgroundColor, BorderColor, BuildChildren, ChildBuild, ChildBuilder,
+        Click, Color, Commands, Component, DespawnRecursiveExt, Entity, FlexDirection, FlexWrap,
         JustifyContent, Name, Node, Out, Over, Pointer, PositionType, Query, Res, Single, Text,
         TextFont, Trigger, UiRect, Val, With,
     },
@@ -295,7 +295,7 @@ impl BonusTooltip {
 
     pub fn background_color() -> BackgroundColor {
         use bevy::color::palettes::css;
-        css::DARK_SLATE_BLUE.into()
+        css::DARK_SLATE_BLUE.with_alpha(0.95).into()
     }
 
     fn make_on_over(bonus_description: String) -> impl FnMut(Trigger<Pointer<Over>>, Commands) {

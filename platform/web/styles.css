@@ -11,8 +11,6 @@ body {
 }
 
 .game-container {
-    width: 800px;
-    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,4 +18,8 @@ body {
 
 #game-canvas {
     z-index: 2;
+}
+
+#game-canvas:focus {
+    outline: none;
 }

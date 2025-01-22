@@ -22,8 +22,6 @@ body {
 }
 
 .game-container {
-    width: 800px;
-    height: 600px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,9 +29,15 @@ body {
 
 #game-canvas {
     z-index: 2;
+    width: 1280px;
+    height: 800px;
+}
+
+#game-canvas:focus {
+    outline: none;
 }
 </style>
-<link rel="modulepreload" href="./rock-paper-paradise-34cbb694dcc39f79.js" crossorigin="anonymous" integrity="sha384-bFSJv8L1cOhHChRBMckNSannlYnWbWvC7ojMXrVqmaLOyz/kKPZEqWulZ5t6gtqL"><link rel="preload" href="./rock-paper-paradise-34cbb694dcc39f79_bg.wasm" crossorigin="anonymous" integrity="sha384-xFsDxLe+/SR3jN5HryBTEBDvQNWZKyn65MsddSPYkzql/SjOAmBpZro1qvwGeeaU" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="./rock-paper-paradise-d18d0d5b9614b2d2.js" crossorigin="anonymous" integrity="sha384-g50KNUMccwcqbv/ABdGwN4Ggl+c+h5U5wjnhMwVADtA8GnQFvZkiSXFjHzUjnfgT"><link rel="preload" href="./rock-paper-paradise-d18d0d5b9614b2d2_bg.wasm" crossorigin="anonymous" integrity="sha384-PbGa/Yskb/+TSQg/pPMRRgcE7jIc8SEgZ5URanbUl2Ejrtso8E7UzoQ+bTfbHX8C" as="fetch" type="application/wasm"></head>
 
 <body>
     <main class="game-container">
@@ -41,8 +45,8 @@ body {
     </main>
 
 <script type="module">
-import init, * as bindings from './rock-paper-paradise-34cbb694dcc39f79.js';
-const wasm = await init({ module_or_path: './rock-paper-paradise-34cbb694dcc39f79_bg.wasm' });
+import init, * as bindings from './rock-paper-paradise-d18d0d5b9614b2d2.js';
+const wasm = await init({ module_or_path: './rock-paper-paradise-d18d0d5b9614b2d2_bg.wasm' });
 
 
 window.wasmBindings = bindings;

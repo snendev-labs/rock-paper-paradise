@@ -3,14 +3,14 @@ use bevy::{
     prelude::{
         AlignItems, BackgroundColor, BorderColor, BuildChildren, ChildBuild, ChildBuilder, Click,
         Color, Commands, Component, DespawnRecursiveExt, Entity, FlexDirection, FlexWrap,
-        JustifyContent, Name, Node, Out, Over, Pointer, PositionType, Query, Res, Single, TextFont,
-        Trigger, UiRect, Val, With,
+        JustifyContent, Name, Node, Out, Over, Pointer, PositionType, Query, Res, Single, Text,
+        TextFont, Trigger, UiRect, Val, With,
     },
 };
 
 use crate::{Bonus, Campaign, Element, ElementTable, Level, Phase, PlayerElements, Upgrades};
 
-use super::{image_bundle, text_bundle, LocalPlayer, RpsGlyphs, UIComponent};
+use super::{image_bundle, text_bundle, ElementTooltip, LocalPlayer, RpsGlyphs, UIComponent};
 
 #[derive(Clone, Debug)]
 #[derive(Component)]
@@ -109,6 +109,20 @@ impl UIComponent for BonusUIComponent {
                                 });
                         }
                     });
+                builder.spawn((
+                    Text::new("(Player DMG | Enemy DMG)"),
+                    TextFont {
+                        font_size: 14.,
+                        ..Default::default()
+                    },
+                ));
+                builder.spawn((
+                    Text::new("(rows = player choices)"),
+                    TextFont {
+                        font_size: 14.,
+                        ..Default::default()
+                    },
+                ));
             });
 
         builder
@@ -163,7 +177,7 @@ impl ElementsTablePanel {
             left: Val::Px(0.),
             right: Val::Px(0.),
             bottom: Val::Auto,
-            height: Val::Px(402.),
+            height: Val::Px(462.),
             flex_direction: FlexDirection::Column,
             justify_content: JustifyContent::Center,
             align_items: AlignItems::Center,
@@ -216,7 +230,7 @@ impl BonusSelectionPanel {
             top: Val::Auto,
             left: Val::Px(100.),
             right: Val::Auto,
-            bottom: Val::Percent(20.),
+            bottom: Val::Percent(10.),
             height: Val::Px(120.),
             width: Val::Px(60.),
             flex_direction: FlexDirection::Column,
@@ -329,7 +343,7 @@ impl EvolutionSelectionPanel {
             top: Val::Auto,
             left: Val::Auto,
             right: Val::Px(300.),
-            bottom: Val::Percent(20.),
+            bottom: Val::Percent(10.),
             height: Val::Px(120.),
             width: Val::Px(200.),
             flex_direction: FlexDirection::Column,
@@ -370,56 +384,6 @@ impl EvolutionButton {
             local_player.insert(element);
             campaign.1.increment();
             *campaign.0 = Phase::InGame;
-        }
-    }
-}
-
-#[derive(Component)]
-pub struct ElementTooltip {
-    pub node: Entity,
-}
-
-impl ElementTooltip {
-    pub fn node() -> Node {
-        Node {
-            position_type: PositionType::Absolute,
-            bottom: Val::Px(60.),
-            ..Default::default()
-        }
-    }
-
-    pub fn background_color() -> BackgroundColor {
-        use bevy::color::palettes::css;
-        css::DARK_SLATE_BLUE.into()
-    }
-
-    fn make_on_over(element: Element) -> impl FnMut(Trigger<Pointer<Over>>, Commands) {
-        move |trigger: Trigger<Pointer<Over>>, mut commands: Commands| {
-            let tooltip_ui = commands
-                .spawn((
-                    Name::new("Element Tooltip"),
-                    Self {
-                        node: trigger.entity(),
-                    },
-                    super::text_bundle(element.to_string(), TextFont::default(), Self::node()),
-                    Self::background_color(),
-                ))
-                .id();
-            commands.entity(trigger.entity()).add_child(tooltip_ui);
-        }
-    }
-
-    #[allow(clippy::type_complexity)]
-    fn make_on_out() -> impl FnMut(Trigger<Pointer<Out>>, Commands, Query<(Entity, &ElementTooltip)>)
-    {
-        move |trigger: Trigger<Pointer<Out>>,
-              mut commands: Commands,
-              tooltips: Query<(Entity, &ElementTooltip)>| {
-            for (panel, ElementTooltip { node }) in &tooltips {
-                if *node == trigger.entity() {
-                    commands.entity(panel).despawn_recursive();
-                }
-            }
         }
     }
 }

@@ -15,7 +15,7 @@ use crate::{
     Action, Element, ElementTable, Game, Guess, Health, LastOutcome, PlayerElements, Round,
 };
 
-use super::{image_bundle, text_bundle, LocalPlayer, RpsGlyphs, UIComponent};
+use super::{image_bundle, text_bundle, ElementTooltip, LocalPlayer, RpsGlyphs, UIComponent};
 
 pub struct GameUIPlugin;
 
@@ -150,22 +150,25 @@ impl UIComponent for GameUIComponent {
                     let augmentation = self.enemy_elements.get_augmentation(element);
                     let aspect = self.enemy_elements.get_enchantment(element);
 
-                    builder.spawn((
-                        GameButton,
-                        GameButton::radius(),
-                        GameButton::background_color(),
-                        super::image_bundle(
-                            params
-                                .get_image(&Action::new(
-                                    element,
-                                    aspect.cloned(),
-                                    augmentation.cloned(),
-                                ))
-                                .unwrap()
-                                .clone(),
-                            GameButton::node(),
-                        ),
-                    ));
+                    builder
+                        .spawn((
+                            GameButton,
+                            GameButton::radius(),
+                            GameButton::background_color(),
+                            super::image_bundle(
+                                params
+                                    .get_image(&Action::new(
+                                        element,
+                                        aspect.cloned(),
+                                        augmentation.cloned(),
+                                    ))
+                                    .unwrap()
+                                    .clone(),
+                                GameButton::node(),
+                            ),
+                        ))
+                        .observe(ElementTooltip::make_on_over(element))
+                        .observe(ElementTooltip::make_on_out());
                 }
             });
 
@@ -200,7 +203,9 @@ impl UIComponent for GameUIComponent {
                             &self.enemy_elements.elements,
                             &self.table,
                         ))
-                        .observe(GameButton::make_on_out());
+                        .observe(GameButton::make_on_out())
+                        .observe(ElementTooltip::make_on_over(element))
+                        .observe(ElementTooltip::make_on_out());
                 }
             });
 
@@ -347,7 +352,7 @@ impl GameButton {
                         TextFont::default(),
                         PayoutTooltip::node(),
                     ),
-                    PayoutTooltip::border_color(),
+                    PayoutTooltip::background_color(),
                 ))
                 .id();
             commands.entity(trigger.entity()).add_child(tooltip_ui);
@@ -461,8 +466,9 @@ impl PayoutTooltip {
         }
     }
 
-    fn border_color() -> BorderColor {
-        BorderColor(Color::BLACK)
+    fn background_color() -> BackgroundColor {
+        use bevy::color::palettes::css;
+        css::DARK_SLATE_BLUE.into()
     }
 }
 

@@ -17,6 +17,9 @@ use bevy::{
 mod bonus;
 pub use bonus::*;
 
+mod element;
+pub use element::*;
+
 mod game;
 pub use game::*;
 
